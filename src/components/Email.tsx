@@ -21,7 +21,7 @@ function Email(props: Props) {
 
   const queryClient = useQueryClient();
 
-  const handleClick = () => {
+  const handleClick = async () => {
     const id = parseInt(props?.id, 10);
     storeReadDataToLocalStore("read", id || 0);
     props?.setEmailData((prevValue) => {
@@ -29,7 +29,7 @@ function Email(props: Props) {
         return { id: null, initials: "", date: "", subject: "" };
       return { id, initials, date: dateTime, subject: props?.subject };
     });
-    queryClient.invalidateQueries();
+    await queryClient.invalidateQueries();
   };
 
   return (

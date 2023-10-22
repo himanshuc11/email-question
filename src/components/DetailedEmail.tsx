@@ -16,9 +16,9 @@ function DetailedEmail(props: EmailDetailState) {
     bodyRef.current.innerHTML = data?.body;
   }, [data]);
 
-  const handleMarkClick = () => {
+  const handleMarkClick = async () => {
     storeFavDataToLocalStore("fav", props?.id || 0);
-    queryClient.invalidateQueries();
+    await queryClient.invalidateQueries();
   };
 
   if (isLoading) return <p>Loading...</p>;
