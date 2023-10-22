@@ -1,13 +1,9 @@
 import Email from "./components/Email";
+//import useEmailList from "./hooks/useEmailList";
 
 function App() {
-  // const { data } = useQuery({
-  //   queryKey: ["repoData"],
-  //   queryFn: () =>
-  //     axios
-  //       .get("https://flipkart-email-mock.vercel.app/")
-  //       .then((res) => res.data),
-  // });
+  //const { data } = useEmailList();
+
   return (
     <div className="bg-secondary h-full w-full">
       <Email />
