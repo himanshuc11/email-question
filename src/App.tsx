@@ -5,7 +5,7 @@ function App() {
   //const { data } = useEmailList();
 
   return (
-    <div className="bg-secondary h-full w-full">
+    <div className="bg-secondary h-full w-full px-10 mt-10">
       <Email />
       <Email />
       <Email />
