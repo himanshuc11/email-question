@@ -10,3 +10,8 @@ export type Email = {
   subject: string;
   short_description: string;
 };
+
+export type LocalEmail = Email & {
+  isFavorite: boolean;
+  isRead: boolean;
+};

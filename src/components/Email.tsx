@@ -2,15 +2,14 @@ import Avatar from "./Avatar";
 import LightAndDarkText from "./LightAndDark";
 import { format } from "date-fns";
 import { DATE_FORMATS } from "../constants";
+import type { LocalEmail } from "../types";
 
-const date = 1582728505000;
-const dateObject = new Date(date);
-
-function Email() {
-  const isRead = true;
+function Email(props: LocalEmail) {
+  const { isRead = false, isFavorite = false } = props;
   const backgroundColor = isRead ? "bg-readWhite" : "bg-white";
 
-  const isFavorite = true;
+  const fromText = props?.from?.name + " " + props?.from?.email;
+  const dateObject = new Date(props?.date);
 
   return (
     <section
@@ -19,14 +18,12 @@ function Email() {
         backgroundColor
       }
     >
-      <Avatar initials={"F"} />
+      <Avatar initials={props?.from?.name?.[0]} />
       <div className="ml-4">
-        <LightAndDarkText lightText="From: " darkText="Lorem Ipsum" />
+        <LightAndDarkText lightText="From: " darkText={fromText} />
         <br />
-        <LightAndDarkText lightText="Subject: " darkText="Lorem Ipsum" />
-        <p className="mt-2 mb-1.5 text-ellipsis">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tenetur est
-        </p>
+        <LightAndDarkText lightText="Subject: " darkText={props.subject} />
+        <p className="mt-2 mb-1.5 text-ellipsis">{props?.short_description}</p>
         <div className="flex">
           <time
             className="text-textGrey text-sm"
