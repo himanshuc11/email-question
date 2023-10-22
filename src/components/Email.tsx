@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import { DATE_FORMATS } from "../constants";
 import type { LocalEmail, EmailDetailState } from "../types";
 import { storeReadDataToLocalStore } from "../utils";
+import { useQueryClient } from "@tanstack/react-query";
 
 type Props = LocalEmail & {
   setEmailData: React.Dispatch<React.SetStateAction<EmailDetailState>>;
@@ -18,6 +19,8 @@ function Email(props: Props) {
   const dateObject = new Date(props?.date);
   const dateTime = format(dateObject, DATE_FORMATS.YEAR_TIME);
 
+  const queryClient = useQueryClient();
+
   const handleClick = () => {
     const id = parseInt(props?.id, 10);
     storeReadDataToLocalStore("read", id || 0);
@@ -26,6 +29,7 @@ function Email(props: Props) {
         return { id: null, initials: "", date: "", subject: "" };
       return { id, initials, date: dateTime, subject: props?.subject };
     });
+    queryClient.invalidateQueries();
   };
 
   return (

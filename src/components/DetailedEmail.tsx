@@ -3,10 +3,12 @@ import useDetailedEmail from "../hooks/useDetailedEmail";
 import Avatar from "./Avatar";
 import { storeFavDataToLocalStore } from "../utils";
 import type { EmailDetailState } from "../types";
+import { useQueryClient } from "@tanstack/react-query";
 
 function DetailedEmail(props: EmailDetailState) {
-  const { data } = useDetailedEmail(props.id || 0);
+  const { data, isLoading } = useDetailedEmail(props.id || 0);
   const bodyRef = useRef(null);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (!data || bodyRef?.current === null) return;
@@ -16,7 +18,10 @@ function DetailedEmail(props: EmailDetailState) {
 
   const handleMarkClick = () => {
     storeFavDataToLocalStore("fav", props?.id || 0);
+    queryClient.invalidateQueries();
   };
+
+  if (isLoading) return <p>Loading...</p>;
 
   return (
     <section className="w-full border rounded-md border-borderGrey bg-white px-5 ml-5 py-5 max-h-screen">
