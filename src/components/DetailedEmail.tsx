@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import useDetailedEmail from "../hooks/useDetailedEmail";
 import Avatar from "./Avatar";
+import { storeDataToLocalStore } from "../utils";
 import type { EmailDetailState } from "../types";
 
 function DetailedEmail(props: EmailDetailState) {
@@ -13,6 +14,10 @@ function DetailedEmail(props: EmailDetailState) {
     bodyRef.current.innerHTML = data?.body;
   }, [data]);
 
+  const handleMarkClick = () => {
+    console.log(storeDataToLocalStore("fav", props?.id || 0));
+  };
+
   return (
     <section className="w-full border rounded-md border-borderGrey bg-white px-5 ml-5 py-5 max-h-screen">
       <header className="flex">
@@ -24,7 +29,10 @@ function DetailedEmail(props: EmailDetailState) {
             </p>
             <time dateTime={props.date}>{props.date}</time>
           </div>
-          <button className="bg-primary text-white px-2 py-1 mb-auto rounded-full">
+          <button
+            className="bg-primary text-white px-2 py-1 mb-auto rounded-full"
+            onClick={handleMarkClick}
+          >
             Mark as favorite
           </button>
         </div>
