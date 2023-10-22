@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import type { Email, LocalEmail } from "../types";
+import { getDataFromLocalStore } from "../utils";
 
 type Response = {
   list: Email[];
@@ -13,10 +14,16 @@ type LocalResponse = {
 };
 
 function transformEmails(props: Response): LocalResponse {
+  const favArray = getDataFromLocalStore("fav");
+  const readArray = getDataFromLocalStore("read");
+
+  const favSet = new Set(favArray);
+  const readSet = new Set(readArray);
+
   const localEmails: LocalEmail[] = props.list.map((email) => ({
     ...email,
-    isFavorite: false,
-    isRead: false,
+    isFavorite: favSet.has(parseInt(email.id)),
+    isRead: readSet.has(parseInt(email.id)),
   }));
 
   const transformedData: LocalResponse = {
