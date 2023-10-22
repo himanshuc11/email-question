@@ -1,13 +1,16 @@
-import { format } from "date-fns";
-import { DATE_FORMATS } from "./constants";
-
-const date = 1582728505000;
-const dateObject = new Date(date);
+import Email from "./components/Email";
+import useEmailList from "./hooks/useEmailList";
 
 function App() {
+  const { data, isLoading } = useEmailList();
+
+  if (isLoading) return <p>Loading...</p>;
+
   return (
-    <div className="bg-secondary w-screen h-screen text-black">
-      {format(dateObject, DATE_FORMATS.YEAR_TIME)}
+    <div className="bg-secondary h-full w-full px-10 mt-10">
+      {data?.list?.map((localEmail) => (
+        <Email {...localEmail} />
+      ))}
     </div>
   );
 }
