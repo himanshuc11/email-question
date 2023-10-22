@@ -34,7 +34,7 @@ async function getEmails() {
 
 function useEmailList() {
   return useQuery({
-    queryKey: ["repoData"],
+    queryKey: ["emailList"],
     queryFn: getEmails,
     select: transformEmails,
   });
