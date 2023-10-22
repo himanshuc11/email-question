@@ -15,3 +15,10 @@ export type LocalEmail = Email & {
   isFavorite: boolean;
   isRead: boolean;
 };
+
+export type EmailDetailState = {
+  id: number | null;
+  initials: string;
+  subject: string;
+  date: string;
+};
