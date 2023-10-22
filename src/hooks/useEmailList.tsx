@@ -20,6 +20,8 @@ function transformEmails(props: Response): LocalResponse {
   const favSet = new Set(favArray);
   const readSet = new Set(readArray);
 
+  console.log(favSet);
+
   const localEmails: LocalEmail[] = props.list.map((email) => ({
     ...email,
     isFavorite: favSet.has(parseInt(email.id)),
@@ -36,14 +38,14 @@ function transformEmails(props: Response): LocalResponse {
 async function getEmails() {
   const res = await axios.get("https://flipkart-email-mock.vercel.app/");
   const data = res.data;
-  return data as Response;
+  return transformEmails(data);
 }
 
 function useEmailList() {
   return useQuery({
     queryKey: ["emailList"],
     queryFn: getEmails,
-    select: transformEmails,
+    refetchOnMount: true,
   });
 }
 
