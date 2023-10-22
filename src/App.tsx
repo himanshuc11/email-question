@@ -9,7 +9,9 @@ function App() {
         .get("https://flipkart-email-mock.vercel.app/")
         .then((res) => res.data),
   });
-  return <div className="text-red-700">{JSON.stringify(data)}</div>;
+  return (
+    <div className="bg-secondary w-screen h-screen">{JSON.stringify(data)}</div>
+  );
 }
 
 export default App;
