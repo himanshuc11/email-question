@@ -3,6 +3,7 @@ import LightAndDarkText from "./LightAndDark";
 import { format } from "date-fns";
 import { DATE_FORMATS } from "../constants";
 import type { LocalEmail, EmailDetailState } from "../types";
+import { storeReadDataToLocalStore } from "../utils";
 
 type Props = LocalEmail & {
   setEmailData: React.Dispatch<React.SetStateAction<EmailDetailState>>;
@@ -19,6 +20,7 @@ function Email(props: Props) {
 
   const handleClick = () => {
     const id = parseInt(props?.id, 10);
+    storeReadDataToLocalStore("read", id || 0);
     props?.setEmailData((prevValue) => {
       if (prevValue.id === id)
         return { id: null, initials: "", date: "", subject: "" };

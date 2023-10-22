@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import useDetailedEmail from "../hooks/useDetailedEmail";
 import Avatar from "./Avatar";
-import { storeDataToLocalStore } from "../utils";
+import { storeFavDataToLocalStore } from "../utils";
 import type { EmailDetailState } from "../types";
 
 function DetailedEmail(props: EmailDetailState) {
@@ -15,7 +15,7 @@ function DetailedEmail(props: EmailDetailState) {
   }, [data]);
 
   const handleMarkClick = () => {
-    console.log(storeDataToLocalStore("fav", props?.id || 0));
+    storeFavDataToLocalStore("fav", props?.id || 0);
   };
 
   return (

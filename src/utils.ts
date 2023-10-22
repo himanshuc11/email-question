@@ -13,7 +13,26 @@ export function getDataFromLocalStore(key: Key) {
   }
 }
 
-export function storeDataToLocalStore(key: Key, value: number) {
+export function storeReadDataToLocalStore(key: Key, value: number) {
+  try {
+    const data = getDataFromLocalStore(key) as number[];
+    let newArray = [value];
+    if (data) {
+      const isAlreadyPresent = data?.find((elem) => elem === value);
+      if (isAlreadyPresent) {
+        newArray = data;
+      } else {
+        newArray = [...data, value];
+      }
+    }
+    const stringified = JSON.stringify(newArray);
+    return localStorage.setItem(key, stringified);
+  } catch {
+    return null;
+  }
+}
+
+export function storeFavDataToLocalStore(key: Key, value: number) {
   try {
     const data = getDataFromLocalStore(key) as number[];
     let newArray = [value];
